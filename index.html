@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Todolist - Web</title>
+  <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+  <main class="app">
+    <h1>Todolist</h1>
+
+    <form id="todo-form" class="todo-form" aria-label="Añadir tarea">
+      <input id="todo-input" type="text" placeholder="Escribe una tarea y pulsa Enter o Añadir" autocomplete="off" />
+      <button id="add-btn" type="submit">Añadir</button>
+    </form>
+
+    <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+
+    <div class="controls">
+      <button id="clear-completed">Borrar completadas</button>
+      <button id="clear-all">Borrar todo</button>
+    </div>
+
+    <p class="hint">Las tareas se guardan en el almacenamiento local del navegador.</p>
+  </main>
+
+  <script src="src/js/app.js" defer></script>
+</body>
+</html>

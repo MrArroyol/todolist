@@ -1,14 +1,17 @@
-// Simple Todo app - stores items in localStorage
-const STORAGE_KEY = 'todolist.items'
-
+// Simple Todo app - stores items in tasks.json
 const form = document.getElementById('todo-form')
 const input = document.getElementById('todo-input')
 const list = document.getElementById('todo-list')
 const clearCompletedBtn = document.getElementById('clear-completed')
 const clearAllBtn = document.getElementById('clear-all')
 
-let items = loadItems()
-render()
+let items = []
+init()
+
+async function init(){
+  items = await loadItems()
+  render()
+}
 
 form.addEventListener('submit', e => {
   e.preventDefault()
@@ -86,16 +89,26 @@ function render(){
   })
 }
 
-function saveItems(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+async function saveItems(){
+  try{
+    await fetch('/api/tasks', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(items)
+    })
+  }catch(e){
+    console.error('No se pudo guardar en tasks.json', e)
+  }
 }
 
-function loadItems(){
+async function loadItems(){
   try{
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : []
+    const res = await fetch('/api/tasks')
+    if(!res.ok) return []
+    const data = await res.json()
+    return Array.isArray(data) ? data : []
   }catch(e){
-    console.error('No se pudo leer storage', e)
+    console.error('No se pudo leer tasks.json', e)
     return []
   }
 }

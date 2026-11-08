@@ -1,0 +1,10 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "Todolist web con almacenamiento en archivo JSON",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
